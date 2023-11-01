@@ -1,10 +1,7 @@
 package br.com.ekan.test.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,19 +11,19 @@ import java.util.UUID;
 
 import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.EAGER;
-import static jakarta.persistence.GenerationType.AUTO;
+import static java.util.UUID.randomUUID;
 
 @Entity
 @Getter
 @Setter
 public class Beneficiary {
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
     private String phone;
     private LocalDate birthDate;
-    @OneToMany(fetch = EAGER, mappedBy = "beneficiary", cascade = ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "beneficiary", cascade = ALL, orphanRemoval = true)
     private Set<Document> documents;
     @JsonIgnore
     private LocalDate inclusionDate;

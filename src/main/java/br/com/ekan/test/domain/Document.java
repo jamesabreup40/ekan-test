@@ -8,21 +8,17 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import static jakarta.persistence.FetchType.EAGER;
-import static jakarta.persistence.FetchType.LAZY;
-import static jakarta.persistence.GenerationType.AUTO;
-
 @Entity
 @Getter
 @Setter
 public class Document {
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private DocumentType documentType;
     private String description;
     @JsonIgnore
-    @ManyToOne(fetch = EAGER)
+    @ManyToOne
     @JoinColumn(name = "beneficiaryId")
     private Beneficiary beneficiary;
     @JsonIgnore
